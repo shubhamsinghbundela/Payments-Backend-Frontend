@@ -1,4 +1,4 @@
-# Payments Backend & Frontend
+# Payments Backend
 
 A mini Paytm-style wallet application where users can sign up, authenticate, check their account balance, search for other users, and transfer money securely between accounts.
 
