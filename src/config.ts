@@ -9,6 +9,8 @@ const connectDB = async () => {
   if (url) {
     const conn = await mongoose.connect(url);
     console.log(`MongoDB connected: ${conn.connection.host}`);
+  } else {
+    throw new Error("DATABASE_URL is not defined");
   }
 };
 
