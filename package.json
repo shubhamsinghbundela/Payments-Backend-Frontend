@@ -8,6 +8,8 @@
     "dev": "bun --watch run index.ts"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/bcrypt": "^6.0.0",
     "@types/bun": "latest",
     "nodemon": "^3.1.14"
   },
@@ -15,7 +17,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@types/express": "^5.0.6",
+    "bcrypt": "^6.0.0",
     "dns": "^0.2.2",
     "express": "^5.2.1",
     "mongoose": "^9.6.3",

@@ -1,9 +1,37 @@
+import userModel from "../model/user";
 import type { SignupInput } from "../types/user";
+import ApiError from "../utils/apiError";
+import bcrypt from "bcrypt";
+
 const signup = async ({
-  username,
+  email,
   password,
   firstName,
   lastName,
-}: SignupInput) => {};
+}: SignupInput) => {
+  const userExist = await userModel.findOne({
+    email,
+  });
+
+  if (userExist) {
+    throw ApiError.forbidden("User Already Exists");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const newUser = await userModel.create({
+    firstName,
+    lastName,
+    email,
+    password: hashedPassword,
+  });
+
+  return {
+    userId: newUser._id,
+    firstName: newUser.firstName,
+    lastName: newUser.lastName,
+    email: newUser.email,
+  };
+};
 
 export { signup };
