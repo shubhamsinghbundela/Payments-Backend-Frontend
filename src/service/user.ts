@@ -1,3 +1,4 @@
+import accountModel from "../model/account";
 import userModel from "../model/user";
 import type { SignupInput } from "../types/user";
 import ApiError from "../utils/apiError";
@@ -24,6 +25,11 @@ const signup = async ({
     lastName,
     email,
     password: hashedPassword,
+  });
+
+  await accountModel.create({
+    userId: newUser._id,
+    balance: 100,
   });
 
   return {
