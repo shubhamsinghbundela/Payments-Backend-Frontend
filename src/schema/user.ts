@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const userSchema = z.object({
+const userSignupSchema = z.object({
   email: z.email(),
   password: z
     .string()
@@ -16,4 +16,18 @@ const userSchema = z.object({
   lastName: z.string(),
 });
 
-export { userSchema };
+const userSigninSchema = z.object({
+  email: z.email(),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number")
+    .regex(
+      /[^A-Za-z0-9]/,
+      "Password must contain at least one special character",
+    ),
+});
+
+export { userSignupSchema, userSigninSchema };

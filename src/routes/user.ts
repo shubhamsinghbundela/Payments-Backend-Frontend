@@ -2,10 +2,11 @@ import { Router } from "express";
 
 import * as controller from "../controller/user.ts";
 import { validateData } from "../middleware/validationMiddleware.ts";
-import { userSchema } from "../schema/user.ts";
+import { userSigninSchema, userSignupSchema } from "../schema/user.ts";
 
 const router = Router();
 
-router.post("/signup", validateData(userSchema), controller.signup);
+router.post("/signup", validateData(userSignupSchema), controller.signup);
+router.post("/signin", validateData(userSigninSchema), controller.signin);
 
 export default router;
