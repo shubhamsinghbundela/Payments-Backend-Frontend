@@ -4,17 +4,10 @@ import { type Request, type Response } from "express";
 import * as userService from "../service/user.ts";
 
 import type { SignupInput } from "../types/user";
-import { userSchema } from "../schema/user.ts";
 
 //Request<{}, {}, SignupInput> -> I don't care about URL params or response body types, but I want req.body to have the shape of SignupInput.
 const signup = async (req: Request<{}, {}, SignupInput>, res: Response) => {
-  const { data, success } = userSchema.safeParse(req.body);
-  if (!success) {
-    res.status(403).json({
-      message: "Incorrect Inputs",
-    });
-    return;
-  }
+  res.json({ message: "User registered successfully", data: req.body });
   // const user = await userService.signup(req.body);
   // res.status(200).json({
   //   message: "User get created",
