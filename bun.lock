@@ -9,6 +9,7 @@
         "dns": "^0.2.2",
         "express": "^5.2.1",
         "mongoose": "^9.6.3",
+        "zod": "^4.4.3",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -435,6 +436,8 @@
     "ws": ["ws@0.4.31", "", { "dependencies": { "commander": "~0.6.1", "nan": "~0.3.0", "options": ">=0.0.5", "tinycolor": "0.x" }, "bin": { "wscat": "./bin/wscat" } }, "sha512-mWiVQ9qZGPXvLxQ4xGy58Ix5Bw0L99SB+hDT8L59bty4fbnQczaGl4YEWR7AzLQGbvPn/30r9/o41dPiSuUmYw=="],
 
     "xmlhttprequest": ["xmlhttprequest@https://github.com/LearnBoost/node-XMLHttpRequest/archive/0f36d0b5ebc03d85f860d42a64ae9791e1daa433.tar.gz", {}, "sha512-TVSZwoeUQ7OKhb8jnQdSxGFz+lm4MGWmhG0deeYg85VQT74x5LcSrKeXHE0ZIzEycgqQ5mF8r8e1AykA7TpNAQ=="],
+
+    "zod": ["zod@4.4.3", "", {}, "sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ=="],
 
     "connect/debug": ["debug@1.0.3", "", { "dependencies": { "ms": "0.6.2" } }, "sha512-MltK7Ykj/udtD728gD/RrONStwVnDpBNIP1h+CBcnwnJdHqHxfWHI1E8XLootUl7NOPAYTCCXlb8/Qmy7WyB1w=="],
 
