@@ -4,7 +4,12 @@ import userModel from "../model/user";
 import type { SigninInput, SignupInput } from "../types/user";
 import ApiError from "../utils/apiError";
 import bcrypt from "bcrypt";
-import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyRefreshToken,
+} from "../utils/jwt";
+import type { Types } from "mongoose";
 
 const signup = async ({
   email,
@@ -71,4 +76,27 @@ const signin = async ({ email, password }: SigninInput) => {
   }
 };
 
-export { signup, signin };
+const refresh = async (token: string) => {
+  if (!token) {
+    throw ApiError.unauthorized("Refresh token missing");
+  }
+
+  const decoded = verifyRefreshToken(token);
+  console.log(decoded);
+
+  const userExists = await userModel.findOne({
+    _id: decoded.userId,
+  });
+
+  if (!userExists) {
+    throw ApiError.notFound("User Not found");
+  }
+
+  const accessToken = generateAccessToken({
+    userId: userExists._id,
+  });
+
+  return { accessToken };
+};
+
+export { signup, signin, refresh };

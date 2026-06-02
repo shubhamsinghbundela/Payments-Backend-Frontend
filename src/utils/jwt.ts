@@ -1,4 +1,4 @@
-import jwt, { type SignOptions } from "jsonwebtoken";
+import jwt, { type SignOptions, type JwtPayload } from "jsonwebtoken";
 
 import { Types } from "mongoose";
 
@@ -10,23 +10,39 @@ const accessSecret = process.env.JWT_ACCESS_SECRET!;
 const refreshSecret = process.env.JWT_REFRESH_SECRET!;
 
 const generateAccessToken = (payload: Payload): string => {
-  return jwt.sign(payload, accessSecret, {
-    expiresIn: process.env.JWT_ACCESS_EXPIRES_IN || "15m",
-  } as SignOptions);
+  try {
+    return jwt.sign(payload, accessSecret, {
+      expiresIn: process.env.JWT_ACCESS_EXPIRES_IN || "15m",
+    } as SignOptions);
+  } catch (error) {
+    throw error;
+  }
 };
 
 const generateRefreshToken = (payload: Payload): string => {
-  return jwt.sign(payload, refreshSecret, {
-    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
-  } as SignOptions);
+  try {
+    return jwt.sign(payload, refreshSecret, {
+      expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
+    } as SignOptions);
+  } catch (error) {
+    throw error;
+  }
 };
 
 const verifyAccessToken = (token: string) => {
-  return jwt.verify(token, accessSecret);
+  try {
+    return jwt.verify(token, accessSecret) as JwtPayload;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const verifyRefreshToken = (token: string) => {
-  return jwt.verify(token, refreshSecret);
+  try {
+    return jwt.verify(token, refreshSecret) as JwtPayload;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export {

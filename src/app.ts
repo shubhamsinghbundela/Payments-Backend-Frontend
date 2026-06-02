@@ -1,10 +1,13 @@
 import express from "express";
 import authRoute from "./routes/user";
 import errorHandler from "./middleware/errorMiddleware";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.get("/v1/health", (req, res) => {
   res.status(200).json({

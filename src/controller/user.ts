@@ -38,4 +38,15 @@ const signin = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { signup, signin };
+const refresh = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log(req.cookies?.refreshToken);
+    const { accessToken } = await userService.refresh(req.cookies.refreshToken);
+
+    ApiResponse.ok(res, "Token refreshed successfully", { accessToken });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { signup, signin, refresh };
