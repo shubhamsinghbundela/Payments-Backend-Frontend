@@ -1,4 +1,3 @@
-import { password } from "bun";
 import accountModel from "../model/account";
 import userModel from "../model/user";
 import type { SigninInput, SignupInput } from "../types/user";
@@ -9,7 +8,6 @@ import {
   generateRefreshToken,
   verifyRefreshToken,
 } from "../utils/jwt";
-import type { Types } from "mongoose";
 
 const signup = async ({
   email,

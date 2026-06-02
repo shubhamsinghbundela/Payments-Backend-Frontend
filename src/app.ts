@@ -1,5 +1,6 @@
 import express from "express";
 import authRoute from "./routes/user";
+import accountRoute from "./routes/account";
 import errorHandler from "./middleware/errorMiddleware";
 import cookieParser from "cookie-parser";
 
@@ -16,6 +17,7 @@ app.get("/v1/health", (req, res) => {
 });
 
 app.use("/v1/user", authRoute);
+app.use("/v1/account", accountRoute);
 
 app.use(errorHandler);
 
