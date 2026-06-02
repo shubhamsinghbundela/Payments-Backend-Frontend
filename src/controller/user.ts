@@ -5,6 +5,7 @@ import * as userService from "../service/user.ts";
 
 import type { SignupInput } from "../types/user";
 import ApiResponse from "../utils/apiResponse.ts";
+import ApiError from "../utils/apiError.ts";
 
 //Request<{}, {}, SignupInput> -> I don't care about URL params or response body types, but I want req.body to have the shape of SignupInput.
 const signup = async (
@@ -49,4 +50,28 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { signup, signin, refresh };
+const getMe = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      throw ApiError.unauthorized("Unauthorized User");
+    }
+    const { user } = await userService.getMe(userId);
+
+    ApiResponse.ok(res, "User get successfully", { user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const logout = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.clearCookie("refreshToken");
+
+    ApiResponse.ok(res, "Logout Success");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { signup, signin, refresh, getMe, logout };

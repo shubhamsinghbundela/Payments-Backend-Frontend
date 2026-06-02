@@ -82,7 +82,6 @@ const refresh = async (token: string) => {
   }
 
   const decoded = verifyRefreshToken(token);
-  console.log(decoded);
 
   const userExists = await userModel.findOne({
     _id: decoded.userId,
@@ -99,4 +98,26 @@ const refresh = async (token: string) => {
   return { accessToken };
 };
 
-export { signup, signin, refresh };
+const getMe = async (userId: string) => {
+  if (!userId) {
+    throw ApiError.notFound("user not found");
+  }
+
+  const userExist = await userModel.findOne({
+    _id: userId,
+  });
+
+  if (!userExist) {
+    throw ApiError.notFound("User Not found");
+  }
+
+  return {
+    user: {
+      userId: userExist._id,
+      firstName: userExist.firstName,
+      lastName: userExist.lastName,
+      email: userExist.email,
+    },
+  };
+};
+export { signup, signin, refresh, getMe };
