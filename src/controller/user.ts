@@ -41,7 +41,6 @@ const signin = async (req: Request, res: Response, next: NextFunction) => {
 
 const refresh = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.cookies?.refreshToken);
     const { accessToken } = await userService.refresh(req.cookies.refreshToken);
 
     ApiResponse.ok(res, "Token refreshed successfully", { accessToken });

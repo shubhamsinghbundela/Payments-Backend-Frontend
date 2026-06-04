@@ -3,8 +3,16 @@ import authRoute from "./routes/user";
 import accountRoute from "./routes/account";
 import errorHandler from "./middleware/errorMiddleware";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 
