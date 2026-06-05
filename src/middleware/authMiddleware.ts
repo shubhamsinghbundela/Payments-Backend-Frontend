@@ -9,7 +9,10 @@ const authMiddleware = async (
   next: NextFunction,
 ) => {
   try {
-    const token = req.headers.token as string;
+    let token;
+    if (req.headers.authorization?.startsWith("Bearer")) {
+      token = req.headers.authorization.split(" ")[1];
+    }
 
     if (!token) {
       throw ApiError.unauthorized("Access token missing");
