@@ -73,4 +73,20 @@ const logout = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { signup, signin, refresh, getMe, logout };
+const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.userId;
+
+    if (!userId) {
+      throw ApiError.unauthorized("Unauthorized User");
+    }
+
+    const data = await userService.getAllUsers(userId);
+
+    ApiResponse.ok(res, "Users fetched successfully", data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { signup, signin, refresh, getMe, logout, getAllUsers };

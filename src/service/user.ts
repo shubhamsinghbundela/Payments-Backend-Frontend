@@ -118,4 +118,17 @@ const getMe = async (userId: string) => {
     },
   };
 };
-export { signup, signin, refresh, getMe };
+
+const getAllUsers = async (userId: string) => {
+  const users = await userModel
+    .find({
+      _id: { $ne: userId },
+    })
+    .select("_id firstName lastName email");
+
+  return {
+    users,
+  };
+};
+
+export { signup, signin, refresh, getMe, getAllUsers };
